@@ -1,6 +1,5 @@
 resource "aws_iam_role" "wld_sts_lambda_role" {
   name = "wld-role-lambda-tf-${var.IDENTIFIER}"
-  #path        = "/service-role/"
 
   assume_role_policy = <<EOF
 {
