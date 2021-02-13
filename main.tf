@@ -51,6 +51,7 @@ data "archive_file" "wld_archive_code" {
 }
 
 
+###### If Using S3 ########
 # data "aws_s3_bucket_object" "wld_data_s3_object" {
 #   bucket = var.bucket_name
 #   key    = var.lambda_payload
@@ -62,8 +63,9 @@ resource "aws_lambda_function" "wld_lambda_ec2_function" {
   handler           = "lambda_function.lambda_handler"
   runtime           = "python3.8"
   filename          = var.lambda_payload
-  #source_code_hash  = filebase64sha256(var.lambda_payload)
+  source_code_hash  = filebase64sha256(var.lambda_payload)
 
+  ###### If Using S3 ########
   #source_code_hash = data.aws_s3_bucket_object.wld_data_s3_object.body
   #s3_bucket         = var.bucket_name
   #s3_key            = var.lambda_payload
@@ -104,7 +106,7 @@ resource "aws_lambda_permission" "wld_allow_cw_exec_lambda" {
     source_arn = aws_cloudwatch_event_rule.wld_every_certain_minutes_cw_rule.arn
 }
 
-################ Create SNS Topic #####################
+################ To Create SNS Topic #####################
 # resource "aws_sns_topic" "wld_instance_action_topic" {
 #   name = "wld-instance-action-topic"
 # }
