@@ -46,7 +46,6 @@ resource "aws_iam_role_policy_attachment" "wld_lambda_role_attach" {
 
 data "archive_file" "wld_archive_code" {
   type        = "zip"
-  #source_file = "src/lambda_function.py"
   source_dir  = "src/"
   output_path = "lambda_function_payload.zip"
 }
